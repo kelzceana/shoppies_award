@@ -11,7 +11,7 @@ export default function SearchBar(props) {
           placeholder="Search Movies"
           name="search"
           type="text"
-          onChange={(event)=>console.log(event.target.value)}
+          onChange={props.onChange}
         />
       </form>
     </section>
