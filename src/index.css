@@ -82,24 +82,20 @@ section {
   
 }
 
-
-
-
-
-
-
-.album {
+.movie {
   display: flex;
   color: #fefefe;
   margin-bottom: 0.5rem;
+  height:50px;
 }
 
-.album__thumbnail {
+.movie__thumbnail {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
+  height: inherit
 }
 
-.album__info {
+.movie__info {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -111,15 +107,15 @@ section {
   overflow: hidden;
 }
 
-.album__info--explicit {
+.movie__info--explicit {
   background: rgba(182, 21, 64, 0.4);
 }
 
-.album__name {
+.movie__name {
   font-weight: 700;
 }
 
-.album__artist {
+.movie__artist {
   font-size: 1.2rem;
 }
 
