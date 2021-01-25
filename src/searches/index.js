@@ -10,6 +10,7 @@ import Nominations from "./Nominations"
 const Searches = () => {
   const [term, setTerm] = useState("");
   const [results, setResults] = useState([]);
+  const [nominate, setNominate] = useState([]);
   
 
   useEffect(() => {
@@ -33,11 +34,16 @@ const Searches = () => {
       <main>
         <>
         <SearchBar onChange={(e)=>setTerm(e.target.value)} />
-        
         </>
-         {results && <Results results={results}/>}
-        <Nominations />
+         {results && <Results 
+            results={results}
+            onClick = {setNominate}
+            />}
 
+         <Nominations    
+          movie ={nominate}
+        />
+       
       </main>
     </>
   ); 
