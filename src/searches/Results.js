@@ -1,17 +1,33 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import Movie from './Movie'
 
+
 const Results = (props) => {
+  //monitor state of nomination
+  
+
+  
+
+  //render Movie component for each movie object
   const {results} = props
   console.log(results , "before mapping")
   const getResults = results.map((movie, index) => 
     <Movie
       key={index}
       movie={movie}
+      onClick ={() => props.onClick(movie)}
     />
   )
-  return getResults
+  
+
+  return (
+    <>
+    {getResults}
+    
+   
+    </>
+  )
 }
 
 export default Results
