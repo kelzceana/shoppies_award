@@ -9,7 +9,7 @@ export default function Movie(props) {
         <div className="movie__name">{props.movie.Title}</div>
         <div className="movie__artist">{props.movie.Year}</div>
       </div>
-      <button className="nominate-btn" onClick={props.onClick}>Nominate</button>
+      <button className="nominate-btn" onClick={props.onClick}>{props.message}</button>
     </article>
   );
 }
