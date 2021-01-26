@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 import Movie from './Movie'
-
+import Nominations from "./Nominations"
 
 const Results = (props) => {
   //monitor state of nomination
@@ -17,6 +17,7 @@ const Results = (props) => {
       key={index}
       movie={movie}
       onClick ={() => props.onClick(movie)}
+      message="Nominate"
     />
   )
   
@@ -24,8 +25,6 @@ const Results = (props) => {
   return (
     <>
     {getResults}
-    
-   
     </>
   )
 }
