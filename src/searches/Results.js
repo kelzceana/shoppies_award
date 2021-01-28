@@ -11,8 +11,9 @@ const Results = (props) => {
 
   //render Movie component for each movie object
   const {results} = props
-  console.log(results , "before mapping")
+  
   const getResults = results.map((movie, index) => 
+  
     <Movie
       key={index}
       movie={movie}
