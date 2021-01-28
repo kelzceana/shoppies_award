@@ -4,13 +4,16 @@ import axios from "axios";
 import SearchBar from "./SearchBar"
 import Results from "./Results"
 import Nominations from "./Nominations"
+import Error from "./Error"
+
 
 
 
 const Searches = () => {
-  const [term, setTerm] = useState("");
-  const [results, setResults] = useState([]);
-  const [lists, setLists] = useState([]);
+  const [term, setTerm] = useState(""); // state of the search bar
+  const [error, setError] = useState("")
+  const [results, setResults] = useState([]); // result state
+  const [lists, setLists] = useState([]); //nomination state
   
 
   useEffect(() => {
@@ -18,29 +21,35 @@ const Searches = () => {
       const apiKey = '3b233bc1'
       const url = `http://omdbapi.com/?apikey=${apiKey}&s=${term}`
       axios.get(url).then(res => {
+        if (res.data.Error !== undefined) {
+          setError(res.data.Error)
+          setResults('')
+        }
         setResults(res.data.Search)
+        
+        console.log(res.data.Error)
       })
   }, [term])
 
-  const nominateMovie = (movie) => {
-    console.log(lists, "nominateMovie")
+  const nominateMovie = (movie) => { 
     const newList = lists.concat(movie)
+   setLists(newList)
+  }
+  const remove = (movie) => {
+    console.log(movie, "moffff")
+    const newList = lists.filter(item => item !== movie)
     setLists(newList)
   }
-  console.log(lists, "hey list")
   return (
     <>
       <header className="logo">
         <img src={process.env.PUBLIC_URL + '/movies.png'} alt="Brand" />
       </header>
       <main>
-      
         <SearchBar onChange={(e)=>setTerm(e.target.value)} />
-         {results && <Results 
-            results={results}
-            onClick = {nominateMovie}
-            />}
-          {lists.length > 0 && <Nominations movie ={lists}/>}
+        {!results && <Error  message={error}/>}
+        {results && <Results results={results} onClick = {nominateMovie}/>}
+        {lists.length > 0 && <Nominations movie ={lists} onClick = {remove}/>}
       </main>
     </>
   ); 
