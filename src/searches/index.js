@@ -14,7 +14,7 @@ const Searches = () => {
   const [error, setError] = useState("")
   const [results, setResults] = useState([]); // result state
   const [lists, setLists] = useState([]); //nomination state
-  
+  const [mode, setMode] = useState('')
 
   useEffect(() => {
     
@@ -27,33 +27,40 @@ const Searches = () => {
         }
         setResults(res.data.Search)
         
-        console.log(res.data.Error)
+        setError(res.data.Error)
       })
   }, [term])
 
+  
   const nominateMovie = (movie) => { 
+    
+    if(lists.length > 4) {
+      setMode('full')
+      setError('You have nominated 5 movies')
+      return;
+    }
     const newList = lists.concat(movie)
-   setLists(newList)
-  }
-  const remove = (movie) => {
-    console.log(movie, "moffff")
-    const newList = lists.filter(item => item !== movie)
     setLists(newList)
   }
-
-  const handleOnChange = (e) => {
-    setTerm(e.target.value)
-    if (e.target.value === "") setError("")
+  console.log(lists.length, 'after')
+  const remove = (movie) => {
+      setMode('')
+      setError()
+      const newList = lists.filter(item => item !== movie)
+       setLists(newList)
+  
+    //console.log(movie, "moffff")
+   
   }
-
+  console.log(error, mode, "error")
   return (
     <>
       <header className="logo">
         <img src={process.env.PUBLIC_URL + '/movies.png'} alt="Brand" />
       </header>
       <main>
-        <SearchBar onChange={(e)=>handleOnChange(e)} />
-        {!results && error !== "Incorrect IMDb ID." && <Error  message={error}/>}
+        <SearchBar onChange={(e)=>setTerm(e.target.value)} />
+        {((error !== "Incorrect IMDb ID." && error) || mode )  && <Error  message={error}/>}
         {results && <Results results={results} onClick = {nominateMovie}/>}
         {lists.length > 0 && <Nominations movie ={lists} onClick = {remove}/>}
       </main>
